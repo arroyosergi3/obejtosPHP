@@ -2,6 +2,10 @@
 session_start();
 require_once '../controller/empleadosController.php';
 require_once '../controller/conexion.php';
+require_once '../model/Tarea.php';
+require_once '../model/Realiza.php';
+require_once '../controller/TareaController.php';
+require_once '../controller/RealizaController.php';
 ?>
 <h1> Nueva tarea </h1>
 <form method="post">
@@ -43,5 +47,15 @@ require_once '../controller/conexion.php';
 
 <?php 
         if (isset($_POST['crear'])){
+            $t = new Tarea($_POST['nombre'], $_POST['fInicio'], $_POST['fFin']);
+            TareaController::insertar($t);
+            if ($t = TareaController::buscarPorNOmbre($_POST['nombre'])){
+                echo 'EL ID DE LA TAREA ES:' .$t->id;
+                /*$h = (strtotime($_POST['fFin']) - strtotime($_POST['fInicio'])) / 3600;
+                foreach ($_POST['participantes'] as $key => $value) {
+                $r = new Realiza($value, $t->id, $h);
+                RealizaController::insertar($r);
+            }*/
+            }
             
         }

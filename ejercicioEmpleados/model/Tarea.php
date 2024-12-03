@@ -6,8 +6,8 @@ class Tarea {
     private $fechaInicio;
     private $fechaFin;
 
-    public function __construct($id, $no, $fi, $ff) {
-        $this->id = $id;
+    public function __construct( $no, $fi, $ff) {
+        //$this->id = $id;
         $this->nombre = $no;
         $this->fechaInicio = $fi;
         $this->fechaFin = $ff;
