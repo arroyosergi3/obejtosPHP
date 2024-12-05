@@ -13,6 +13,12 @@ class Tarea {
         $this->fechaFin = $ff;
     }
 
+    public function nuevaTarea($id, $nom, $fi, $ff) {
+        $this->id = $id;
+        $this->nombre = $nom;
+        $this->fechaInicio = $fi;
+        $this->fechaFin = $ff;
+    }
     public function __get(string $param): mixed {
         return $this->$param;
     }

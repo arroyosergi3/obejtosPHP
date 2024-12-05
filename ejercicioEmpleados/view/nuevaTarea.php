@@ -25,17 +25,17 @@ require_once '../controller/RealizaController.php';
         
     }
     /*
-    foreach ($empMismoDep as $key => $value) {
-        echo $value."<br>";
-    }
-     
+      foreach ($empMismoDep as $key => $value) {
+      echo $value."<br>";
+      }
+
      */
     ?>
     Participantes:<select name="participantes[]" multiple="">
-    <?php
-    foreach ($empMismoDep as $key => $value) {
-        if ($value->email != $em->email) {
-            ?>
+        <?php
+        foreach ($empMismoDep as $key => $value) {
+            if ($value->email != $em->email) {
+                ?>
                 <option value="<?php echo $value->email ?>"><?php echo $value->email ?></option>
                 <?php
             }
@@ -45,17 +45,22 @@ require_once '../controller/RealizaController.php';
     <input type="submit" name="crear" value="Crear Nueva Tarea">
 </form>
 
-<?php 
-        if (isset($_POST['crear'])){
-            $t = new Tarea($_POST['nombre'], $_POST['fInicio'], $_POST['fFin']);
-            TareaController::insertar($t);
-            if ($t = TareaController::buscarPorNOmbre($_POST['nombre'])){
-                echo 'EL ID DE LA TAREA ES:' .$t->id;
-                /*$h = (strtotime($_POST['fFin']) - strtotime($_POST['fInicio'])) / 3600;
-                foreach ($_POST['participantes'] as $key => $value) {
+<?php
+if (isset($_POST['crear'])) {
+    $t = new Tarea($_POST['nombre'], $_POST['fInicio'], $_POST['fFin']);
+    TareaController::insertar($t);
+    if ($t = TareaController::buscarPorNOmbre($_POST['nombre'])) {
+        //echo 'EL ID DE LA TAREA ES:' .$t->id;
+        $h = (strtotime($_POST['fFin']) - strtotime($_POST['fInicio'])) / 3600;
+        $r1 = new Realiza($_SESSION['usuario'], $t->id, $h);
+        RealizaController::insertar($r1);
+        if (isset($_POST['participantes'])) {
+            foreach ($_POST['participantes'] as $key => $value) {
                 $r = new Realiza($value, $t->id, $h);
                 RealizaController::insertar($r);
-            }*/
             }
-            
         }
+
+        echo 'Registro insertado correctamente';
+    }
+}
