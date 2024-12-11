@@ -24,6 +24,7 @@ if (isset($_SESSION['cliente'])){
 if (isset($_POST['entrar'])){
     try {
         $conex = new Conexion();
+        echo 'La conexion si fufa';
         $pEncrip = md5($_POST['pass']);
         $result = $conex->query("Select * from cliente where DNI =  '$_POST[dni]' && Clave = '$pEncrip' ");
         if ($result->num_rows){
